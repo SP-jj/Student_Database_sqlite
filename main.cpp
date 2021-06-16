@@ -1,3 +1,9 @@
+// Name: Stef Pollo
+// Date: 16/June/2021
+// Program Name: main.cpp
+// Purpose: This program uses sqlite to manage a database of students, "StudentData.db". 
+//          If it cannot locate the database when it is run, it creates a new one.
+
 #include "sqlite3.h"
 #include <iostream>
 #include <string>
@@ -5,60 +11,60 @@
 
 using namespace std;
 
-int tutorial()
-{
-	// declare database
-	sqlite3* db;
+// int tutorial()
+// {
+// 	// declare database
+// 	sqlite3* db;
 
-	// Think of each SQL statement as a separate computer program. The original SQL text is source code.
-	// A prepared statement object is the compiled object code. 
-	// All SQL must be converted into a prepared statement before it can be run.
-	sqlite3_stmt* statement;
+// 	// Think of each SQL statement as a separate computer program. The original SQL text is source code.
+// 	// A prepared statement object is the compiled object code. 
+// 	// All SQL must be converted into a prepared statement before it can be run.
+// 	sqlite3_stmt* statement;
 
-	// create database
-	sqlite3_open("tutorialDatabase.db", &db);
+// 	// create database
+// 	sqlite3_open("tutorialDatabase.db", &db);
 
-	char* err;
-	int rc = sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS table1(x1 INT, x2 INT, name varchar(100));", NULL, NULL, &err);
+// 	char* err;
+// 	int rc = sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS table1(x1 INT, x2 INT, name varchar(100));", NULL, NULL, &err);
 
-	if(rc != SQLITE_OK)
-	{
-		cout << "error: " << err;
-	}
+// 	if(rc != SQLITE_OK)
+// 	{
+// 		cout << "error: " << err;
+// 	}
 
-	for (int i = 0; i < 10; i++)
-	{
-		string query = "insert into table1 VALUES ("+to_string(i) +','+ to_string(i+5)+", 'stef');";
-		cout << query << '\n';
-		rc = sqlite3_exec(db, query.c_str(), NULL, NULL, &err);
-		if(rc != SQLITE_OK)
-		{
-			cout << "insert error error: " << err;
-		}
-	}
+// 	for (int i = 0; i < 10; i++)
+// 	{
+// 		string query = "insert into table1 VALUES ("+to_string(i) +','+ to_string(i+5)+", 'stef');";
+// 		cout << query << '\n';
+// 		rc = sqlite3_exec(db, query.c_str(), NULL, NULL, &err);
+// 		if(rc != SQLITE_OK)
+// 		{
+// 			cout << "insert error error: " << err;
+// 		}
+// 	}
 
-	//prepares statement to get rows from the table
-	sqlite3_prepare_v2(db, "select x1, x2, name from table1", -1, &statement, 0);
-	int a1, a2;
-	const unsigned char* myName;
+// 	//prepares statement to get rows from the table
+// 	sqlite3_prepare_v2(db, "select x1, x2, name from table1", -1, &statement, 0);
+// 	int a1, a2;
+// 	const unsigned char* myName;
 
-	// sqlite3_step *steps* trought each row in the select query
-	while(sqlite3_step(statement) != SQLITE_DONE)
-	{	
-		// get value in first column(index 0)
-		a1 =  sqlite3_column_int(statement, 0);
-		// value in second column
-		a2 =  sqlite3_column_int(statement, 1);
-		//value in third column
-		myName = sqlite3_column_text(statement, 2);
-		cout << "a1 = "<< a1 << "   a2 = "<< a2 <<'\n';
-	}
+// 	// sqlite3_step *steps* trought each row in the select query
+// 	while(sqlite3_step(statement) != SQLITE_DONE)
+// 	{	
+// 		// get value in first column(index 0)
+// 		a1 =  sqlite3_column_int(statement, 0);
+// 		// value in second column
+// 		a2 =  sqlite3_column_int(statement, 1);
+// 		//value in third column
+// 		myName = sqlite3_column_text(statement, 2);
+// 		cout << "a1 = "<< a1 << "   a2 = "<< a2 <<'\n';
+// 	}
 
-	sqlite3_close(db);
+// 	sqlite3_close(db);
 
 
-	return 0;
-}
+// 	return 0;
+// }
 
 int getValidId(string prompt)
 {
